@@ -16,9 +16,14 @@ Route::get('/', function () {
 });
 
 //	robot routes
-
+Route::get('/robot', 'RobotController@showNewRobotTraversalForm')->name('newRobotTraversal');
+Route::post('/robot', 'RobotController@saveNewRobotTraversalForm')->name('saveNewRobotTraversal');
 
 //	path routes
-Route::get('/pathInputForm', 'PathController@showPathInputForm')->name('pathInputForm');
+Route::get('/pathInputForm/{robot_id}', 'PathController@showPathInputForm')->name('pathInputForm');
 Route::post('/pathInputForm', 'PathController@storePath')->name('pathInputForm-store');
 Route::get('/getPath/{robot_id}/get', 'PathController@getPath');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

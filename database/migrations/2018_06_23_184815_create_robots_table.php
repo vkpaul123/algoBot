@@ -16,7 +16,23 @@ class CreateRobotsTable extends Migration
         Schema::create('robots', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');     //  name of the robot. Just for fun!
+            // $table->string('name');     //  name of the robot. Just for fun!
+
+            // $table->integer('gridSizeX');
+            // $table->integer('gridSizeY');
+            
+            $table->integer('sourceX');
+            $table->integer('sourceY');
+            
+            $table->integer('destinationX');
+            $table->integer('destinationY');
+            
+            $table->integer('currLocX');
+            $table->integer('currLocY');
+            
+            $table->integer('orientation');
+
+            $table->boolean('reached')->default(0); //  if the robot has successfully reached the destination or not
 
             $table->timestamps();
         });

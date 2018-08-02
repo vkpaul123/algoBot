@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Path;
+use App\Robot;
 use Illuminate\Http\Request;
 
 class PathController extends Controller
 {
-    public function showPathInputForm()
+    public function __construct()
     {
-    	return view('pathInputForm');
+        $this->middleware('auth');
+    }
+
+    public function showPathInputForm($robot_id)
+    {
+        $robot = Robot::find($robot_id);
+
+    	return view('pathInputForm')
+        ->with(compact('robot'));
     }
 
     public function storePath(Request $request)
@@ -17,6 +27,12 @@ class PathController extends Controller
     		'robotId' => 'required',
     		'pathStream' => 'required',
     	]);
+
+        $path = new Path;
+        $path->robot_id = $request->robotId;
+        $path->pathStream = $request->pathStream;
+
+        $path->save();
     }
 
     public function getPath($robot_id)
