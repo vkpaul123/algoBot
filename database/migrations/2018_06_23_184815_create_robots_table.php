@@ -32,7 +32,7 @@ class CreateRobotsTable extends Migration
             
             $table->integer('orientation');
 
-            $table->boolean('reached')->default(0); //  if the robot has successfully reached the destination or not
+            $table->boolean('reached')->default(1); //  if the robot has successfully reached the destination or not
 
             $table->timestamps();
         });

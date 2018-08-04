@@ -13,6 +13,16 @@
 				</div>
 
 				<div class="panel-body">
+				@if ($errors->any())
+				    <div class="alert alert-danger alert-dismissible">
+				    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				        <ul>
+				            @foreach ($errors->all() as $error)
+				                <li>{{ $error }}</li>
+				            @endforeach
+				        </ul>
+				    </div>
+				@endif
 					<form action="{{ route('saveNewRobotTraversal') }}" class="form-horizontal" method="post">
 						{{ csrf_field() }}
 						
@@ -155,19 +165,19 @@
 	function orientWest() {
 		event.preventDefault();
 
-		document.getElementById('orientation').value = 2;
+		document.getElementById('orientation').value = 4;
 	}
 
 	function orientEast() {
 		event.preventDefault();
 
-		document.getElementById('orientation').value = 3;
+		document.getElementById('orientation').value = 2;
 	}
 
 	function orientSouth() {
 		event.preventDefault();
 
-		document.getElementById('orientation').value = 4;
+		document.getElementById('orientation').value = 3;
 	}
 </script>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Path;
 use App\Robot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PathController extends Controller
 {
@@ -17,22 +18,33 @@ class PathController extends Controller
     {
         $robot = Robot::find($robot_id);
 
-    	return view('pathInputForm')
-        ->with(compact('robot'));
+        if($robot->reached == 1) {
+    	   return view('pathInputForm')
+            ->with(compact('robot'));
+        } else {
+            Session::flash('messageFail', 'Robot with <strong>ID: '.$robot_id.'</strong> has not reached it\'s previous Destination yet!');
+            return redirect()->back();
+        }
     }
 
     public function storePath(Request $request)
     {
     	$this->validate($request, [
-    		'robotId' => 'required',
-    		'pathStream' => 'required',
+    		'robot_id' => 'required',
+    		'pathStreamSend' => 'required'
     	]);
 
         $path = new Path;
-        $path->robot_id = $request->robotId;
-        $path->pathStream = $request->pathStream;
+        $path->robot_id = $request->robot_id;
+        $path->pathStream = $request->pathStreamSend;
 
         $path->save();
+
+        $robot = Robot::find($request->robot_id);
+        $robot->reached = 0;
+        $robot->save();
+
+        return redirect(route('home'));
     }
 
     public function getPath($robot_id)

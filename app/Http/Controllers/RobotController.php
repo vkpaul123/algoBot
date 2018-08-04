@@ -40,6 +40,6 @@ class RobotController extends Controller
 
     	$robot->save();
 
-    	return redirect()->back();
+    	return redirect(route('home'));
     }
 }

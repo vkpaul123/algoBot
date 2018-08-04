@@ -12,16 +12,18 @@
                 </div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+                    @if (Session::has('messageFail'))
+                        <div class="alert alert-danger">{!! Session::get('messageFail') !!}
+                            <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
                         </div>
                     @endif
+
                     <br>
                     
                     <table class="table table-responsive">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Source</th>
                                 <th>Destination</th>
                                 <th>Current Location</th>
@@ -35,25 +37,26 @@
                             @isset ($robots)
                                 @foreach ($robots as $robot)
                                     <tr>
+                                        <td>{{ $robot->id }}</td>
                                         <td>{{ $robot->sourceX }},&nbsp;{{ $robot->sourceY }}</td>
                                         <td>{{ $robot->destinationX }},&nbsp;{{ $robot->destinationY }}</td>
                                         <td>{{ $robot->currLocX }},&nbsp;{{ $robot->currLocY }}</td>
                                         <td>
                                             @switch($robot->orientation)
                                                 @case(1)
-                                                    <code style="font-size: 2em;">&uarr;</code>
+                                                    <code><i class="fa fa-arrow-up"></i></code>
                                                     @break
                                             
                                                 @case(2)
-                                                    <code style="font-size: 2em;">&larr;</code>
+                                                    <code><i class="fa fa-arrow-right"></i></code>
                                                     @break
 
                                                 @case(3)
-                                                    <code style="font-size: 2em;">&rarr;</code>
+                                                    <code><i class="fa fa-arrow-down"></i></code>
                                                     @break
 
                                                 @case(4)
-                                                    <code style="font-size: 2em;">&darr;</code>
+                                                    <code><i class="fa fa-arrow-left"></i></code>
                                                     @break
                                             @endswitch
 
