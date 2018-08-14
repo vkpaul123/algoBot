@@ -18,6 +18,41 @@ class RobotController extends Controller
     	return view('robotTraversal');
     }
 
+    public function viewRobotTraversal($id)
+    {
+        $robot = Robot::find($id);
+        return view('viewRobotTraversal')
+            ->with(compact('robot'));
+    }
+
+    public function addNewStep($robot_id, $currLocX, $currLocY, $orientation)
+    {   
+        $robot = Robot::find($robot_id);
+
+        $traversal = new Traversal;
+        $traversal->robot_id = $robot_id;
+        $traversal->currLocX = $currLocX;
+        $traversal->currLocY = $currLocY;
+        $traversal->orientation = $orientation;
+        $traversal->save();
+
+        $robot->currLocX = $currLocX;
+        $robot->currLocY = $currLocY;
+        $robot->orientation = $orientation;
+        if($robot->destinationX==$currLocX && $robot->$currLocY==$currLocY)
+            $robot->reached = 1;
+        $robot->save();
+
+        return 'OK';
+    }
+
+    public function refreshRobotTraversal($id)
+    {
+        // Ajax
+        $traversal = Traversal::where('robot_id', $id)->get();
+        return response()->json($traversal);
+    }
+
     public function saveNewRobotTraversalForm(Request $request) {
     	$this->validate($request, [
     		'sourceX' => 'required',

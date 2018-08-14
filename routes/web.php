@@ -18,6 +18,7 @@ Route::get('/', function () {
 //	robot routes
 Route::get('/robot', 'RobotController@showNewRobotTraversalForm')->name('newRobotTraversal');
 Route::post('/robot', 'RobotController@saveNewRobotTraversalForm')->name('saveNewRobotTraversal');
+Route::get('/robot/{id}/viewRobotTraversal', 'RobotController@viewRobotTraversal')->name('viewRobotTraversal');
 
 //	path routes
 Route::get('/pathInputForm/{robot_id}', 'PathController@showPathInputForm')->name('pathInputForm');

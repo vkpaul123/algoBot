@@ -30,7 +30,7 @@
 							<label for="sourceX" class="col-md-4 control-label">Source</label>
 
 							<div class="col-md-3">
-								<input id="sourceX" type="sourceX" class="form-control" name="sourceX" value="{{ old('sourceX') }}" required placeholder="X">
+								<input id="sourceX" type="sourceX" class="form-control" name="sourceX" value="{{ old('sourceX') }}" required placeholder="X" onchange="$('#currLocX').val(this.value);">
 
 								@if ($errors->has('sourceX'))
 								<span class="help-block">
@@ -39,7 +39,7 @@
 								@endif
 							</div>
 							<div class="col-md-3">
-								<input id="sourceY" type="sourceY" class="form-control" name="sourceY" value="{{ old('sourceY') }}" required placeholder="Y">
+								<input id="sourceY" type="sourceY" class="form-control" name="sourceY" value="{{ old('sourceY') }}" required placeholder="Y" onchange="$('#currLocY').val(this.value);">
 
 								@if ($errors->has('sourceY'))
 								<span class="help-block">
@@ -96,12 +96,17 @@
 								@endif
 							</div>
 						</div>
+						
+						<hr>
 
 						<div class="form-group{{ $errors->has('orientation') ? ' has-error' : '' }}">
 							<label for="orientation" class="col-md-4 control-label">Orientation</label>
 
 							<div class="col-md-6">
-								<input id="orientation" type="number" class="form-control" name="orientation" value="{{ old('orientation') }}" required autofocus>
+								<input id="orientation" type="text" class="form-control" name="orientation" value="{{ old('orientation') }}" required autofocus onchange="
+									if(isNaN(this.value) || this.value<=0 || this.value>4)
+										this.value = '';
+								">
 								<a href="" class="btn btn-danger pull-right" onclick="
 								event.preventDefault();
 								document.getElementById('orientation').value = '';
@@ -115,7 +120,7 @@
 						</div>
 						
 						<div class="col-md-offset-6 col-md-4">
-							<table class="table-responsive">
+							<table class="table-responsive panel">
 								<tr>
 									<td></td>
 									<td>
@@ -142,6 +147,8 @@
 							</table>
 							<br><br>
 						</div>
+						
+						
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">

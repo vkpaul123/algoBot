@@ -19,7 +19,7 @@ class PathController extends Controller
         $robot = Robot::find($robot_id);
 
         if($robot->reached == 1) {
-    	   return view('pathInputForm')
+    	    return view('pathInputForm')
             ->with(compact('robot'));
         } else {
             Session::flash('messageFail', 'Robot with <strong>ID: '.$robot_id.'</strong> has not reached it\'s previous Destination yet!');
