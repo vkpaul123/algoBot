@@ -19,7 +19,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <strong><i class="fa fa-gear"></i></strong> {{ config('app.name', 'Laravel') }}
+                        <strong><i class="fa fa-gear"></i></strong> algo<strong>Bot</strong>
                     </a>
                 </div>
 

@@ -10,6 +10,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
         <!-- Styles -->
         <style>
             html, body {
@@ -66,13 +68,20 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-                <div class="top-right links">
+            @if (Route::has('login'))
+            <div class="top-right links">
+                @auth
                     <a href="{{ url('/home') }}">Home</a>
-                </div>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                @endauth
+            </div>
+            @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    algo<strong>Bot</strong>
+                    <strong><i class="fa fa-gear"></i></strong> algo<strong>Bot</strong>
                 </div>
 
                 <div class="links">
@@ -81,6 +90,7 @@
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+
                 </div>
             </div>
         </div>

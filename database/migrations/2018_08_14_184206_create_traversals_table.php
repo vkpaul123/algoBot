@@ -16,9 +16,11 @@ class CreateTraversalsTable extends Migration
         Schema::create('traversals', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('currLocX');
-            $table->integer('currLocY');
+            $table->double('currLocX', 2);
+            $table->double('currLocY', 2);
             $table->integer('orientation');
+            $table->string('command');
+            $table->string('nodeType');
 
             $table->integer('robot_id');
 

@@ -18,11 +18,11 @@ class PathController extends Controller
     {
         $robot = Robot::find($robot_id);
 
-        if($robot->reached == 1) {
+        if($robot->pathSet == 0) {
     	    return view('pathInputForm')
             ->with(compact('robot'));
         } else {
-            Session::flash('messageFail', 'Robot with <strong>ID: '.$robot_id.'</strong> has not reached it\'s previous Destination yet!');
+            Session::flash('messageFail', 'Robot with <strong>ID: '.$robot_id.'</strong> already has a path Set!');
             return redirect()->back();
         }
     }
@@ -41,7 +41,7 @@ class PathController extends Controller
         $path->save();
 
         $robot = Robot::find($request->robot_id);
-        $robot->reached = 0;
+        $robot->pathSet = 1;
         $robot->save();
 
         return redirect(route('home'));

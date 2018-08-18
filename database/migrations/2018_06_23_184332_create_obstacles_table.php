@@ -16,8 +16,8 @@ class CreateObstaclesTable extends Migration
         Schema::create('obstacles', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('xLocation');   //  row-location of the obstacle
-            $table->integer('yLocation');   //  column-location of the obstacle
+            $table->double('xLocation', 2);   //  row-location of the obstacle
+            $table->double('yLocation', 2);   //  column-location of the obstacle
 
             $table->integer('robot_id');
 

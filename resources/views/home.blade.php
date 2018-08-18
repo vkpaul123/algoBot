@@ -8,7 +8,7 @@
                 <div class="panel-heading">
                     All Robots
 
-                    <a href="{{ route('newRobotTraversal') }}" class="btn btn-primary pull-right"><strong>New Robot Traversal</strong></a>
+                    <a href="{{ route('newRobotTraversal') }}" class="btn btn-primary pull-right"><strong><i class="fa fa-user-plus"></i>&nbsp; New Robot Traversal</strong></a>
                 </div>
 
                 <div class="panel-body">
@@ -29,7 +29,10 @@
                                         <th>Destination</th>
                                         <th>Current Location</th>
                                         <th>Orientation</th>
+                                        <th>Path Set</th>
+                                        <th>Started</th>
                                         <th>Reached</th>
+                                        <th>Online</th>
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -44,33 +47,58 @@
                                         <td>{{ $robot->currLocX }},&nbsp;{{ $robot->currLocY }}</td>
                                         <td>
                                             @switch($robot->orientation)
-                                            @case(1)
-                                            <code><i class="fa fa-arrow-up"></i></code>
-                                            @break
+                                                @case(1)
+                                                    <code><i class="fa fa-arrow-up"></i></code>
+                                                @break
 
-                                            @case(2)
-                                            <code><i class="fa fa-arrow-right"></i></code>
-                                            @break
+                                                @case(2)
+                                                    <code><i class="fa fa-arrow-right"></i></code>
+                                                @break
 
-                                            @case(3)
-                                            <code><i class="fa fa-arrow-down"></i></code>
-                                            @break
+                                                @case(3)
+                                                    <code><i class="fa fa-arrow-down"></i></code>
+                                                @break
 
-                                            @case(4)
-                                            <code><i class="fa fa-arrow-left"></i></code>
+                                                @case(4)
+                                                    <code><i class="fa fa-arrow-left"></i></code>
                                             @break
                                             @endswitch
 
                                         </td>
                                         <td>
-                                            @if ($robot->reached == 0)
-                                            <span class="text-danger"><strong>NO</strong></span>
+                                            @if ($robot->pathSet == 0)
+                                                <span class="text-danger"><strong><i class="fa fa-times"></i></strong></span>
                                             @else
-                                            <span class="text-success"><strong>YES</strong></span>
+                                                <span class="text-success"><strong><i class="fa fa-check"></i></strong></span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('pathInputForm', $robot->id) }}" class="btn btn-info btn-xs"><strong>Set Up Path</strong></a> | <a href="{{ route('viewRobotTraversal', $robot->id) }}" class="btn btn-warning btn-xs"><strong>View Traversal</strong></a>
+                                            @if ($robot->started == 0)
+                                                <span class="text-danger"><strong><i class="fa fa-times"></i></strong></span>
+                                            @else
+                                                <span class="text-success"><strong><i class="fa fa-check"></i></strong></span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($robot->reached == 0)
+                                                <span class="text-danger"><strong><i class="fa fa-times"></i></strong></span>
+                                            @else
+                                                <span class="text-success"><strong><i class="fa fa-check"></i></strong></span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($robot->isOnline())
+                                                <span class="text-success"><strong><i class="fa fa-user"></i></strong></span>
+                                            @else
+                                                <span class="text-muted"><strong><i class="fa fa-user-times"></i></strong></span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($robot->started == 0)
+                                                <a href="{{ route('pathInputForm', $robot->id) }}" class="btn btn-info btn-xs"><strong>Set Up Path</strong></a> |
+                                            @endif
+                                            
+                                            <a href="{{ route('viewRobotTraversal', $robot->id) }}" class="btn btn-warning btn-xs"><strong>View Traversal</strong></a>
                                         </td>
                                     </tr>
                                     @endforeach

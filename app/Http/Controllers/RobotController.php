@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Obstacle;
 use App\Robot;
+use App\Traversal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -25,32 +27,20 @@ class RobotController extends Controller
             ->with(compact('robot'));
     }
 
-    public function addNewStep($robot_id, $currLocX, $currLocY, $orientation)
-    {   
-        $robot = Robot::find($robot_id);
-
-        $traversal = new Traversal;
-        $traversal->robot_id = $robot_id;
-        $traversal->currLocX = $currLocX;
-        $traversal->currLocY = $currLocY;
-        $traversal->orientation = $orientation;
-        $traversal->save();
-
-        $robot->currLocX = $currLocX;
-        $robot->currLocY = $currLocY;
-        $robot->orientation = $orientation;
-        if($robot->destinationX==$currLocX && $robot->$currLocY==$currLocY)
-            $robot->reached = 1;
-        $robot->save();
-
-        return 'OK';
-    }
-
     public function refreshRobotTraversal($id)
     {
         // Ajax
         $traversal = Traversal::where('robot_id', $id)->get();
-        return response()->json($traversal);
+        $obstacles = Obstacle::where('robot_id', $id)->get();
+        $isOnline = Robot::find($id)->isOnline();
+
+        $results = [
+            'isOnline' => $isOnline,
+            'traversal' => $traversal,
+            'obstacles' => $obstacles
+        ];
+
+        return response()->json($results);
     }
 
     public function saveNewRobotTraversalForm(Request $request) {
