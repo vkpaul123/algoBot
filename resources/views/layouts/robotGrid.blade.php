@@ -295,22 +295,46 @@
                         <td style="background-color: dimgray"><span style="color: dimgray;">_<span style="color: white;">7</span>_</span></td>
                     </tr>
                 </table>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <span style="color: blue;"><i class="fa fa-stop"></i></span> &nbsp; Source
-                    </div>
-                    <div class="col-md-3">
-                        <span style="color: aqua;"><i class="fa fa-stop"></i></span> &nbsp; Destination
-                    </div>
-                    <div class="col-md-3">
-                        <span style="color: lightblue;"><i class="fa fa-stop"></i></span> &nbsp; Path
-                    </div>
-                    <div class="col-md-3">
-                        <code><i class="fa fa-arrow-up"></i></code> &nbsp; Robot
+            </center>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h4><strong>Traversal</strong></h4>
+                        </div>
+                        <div class="row">
+                            <span style="color: blue;"><i class="fa fa-stop"></i></span> &nbsp; Source
+                        </div>
+                        <div class="row">
+                            <span style="color: aqua;"><i class="fa fa-stop"></i></span> &nbsp; Destination
+                        </div>
+                        <div class="row">
+                            <span style="color: lightblue;"><i class="fa fa-stop"></i></span> &nbsp; Path
+                        </div>
+                        <div class="row">
+                            <code><i class="fa fa-arrow-up"></i></code> &nbsp; Robot
+                        </div>
                     </div>
                 </div>
-            </center>   
+                <div class="col-md-6">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h4><strong>Obstacle</strong></h4>
+                        </div>
+                        <div class="row">
+                            <span style="color: red;"><i class="fa fa-stop"></i></span> &nbsp; High Evaporation
+                        </div>
+                        <div class="row">
+                            <span style="color: chocolate;"><i class="fa fa-stop"></i></span> &nbsp; Medium Evaporation
+                        </div>
+                        <div class="row">
+                            <span style="color: yellow;"><i class="fa fa-stop"></i></span> &nbsp; Low Evaporation
+                        </div>
+                    </div>
+                </div>    
+            </div>
         </div>
     </div>
 </div>

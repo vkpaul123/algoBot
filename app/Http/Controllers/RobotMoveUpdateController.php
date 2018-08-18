@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Obstacle;
 use App\Robot;
 use App\Traversal;
 use Illuminate\Http\Request;
@@ -40,5 +41,16 @@ class RobotMoveUpdateController extends Controller
         } else {
             return 'Error!';
         }
+    }
+
+    public function addNewObstacle($robot_id, $xLocation, $yLocation, $obstacleType) {
+        $obstacle = new Obstacle;
+        $obstacle->xLocation = $xLocation;
+        $obstacle->yLocation = $yLocation;
+        $obstacle->obstacleType = $obstacleType;
+        $obstacle->robot_id = $robot_id;
+        $obstacle->save();
+
+        return 'OK';
     }
 }

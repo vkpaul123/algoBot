@@ -20,8 +20,16 @@ Route::get('/robot', 'RobotController@showNewRobotTraversalForm')->name('newRobo
 Route::post('/robot', 'RobotController@saveNewRobotTraversalForm')->name('saveNewRobotTraversal');
 Route::get('/robot/{id}/viewRobotTraversal', 'RobotController@viewRobotTraversal')->name('viewRobotTraversal');
 
+//	robot movements
+Route::get('/robot/setAllowMovement/{id}/start', 'RobotController@startRobotMovement')->name('startRobotMovement');
+Route::get('/robot/setAllowMovement/{id}/pause', 'RobotController@pauseRobotMovement')->name('pauseRobotMovement');
+Route::get('/robot/setAllowMovement/{id}/stop', 'RobotController@stopRobotMovement')->name('stopRobotMovement');
+
+Route::get('/robot/getAllowMovement/{id}', 'RobotController@getRobotAllowMoveStatus');
+
 // robot reporting(sending requests) to server
 Route::get('/robot/updateMove/{robot_id}/{currLocX}/{currLocY}/{orientation}/{command}/{nodeType}', 'RobotMoveUpdateController@addNewStep');
+Route::get('/robot/updateObstacle/{robot_id}/{xLocation}/{yLocation}/{obstacleType}', 'RobotMoveUpdateController@addNewObstacle');
 
 // Ajax loader
 Route::get('/ajax/traversal/loader/{id}', 'RobotController@refreshRobotTraversal')->name('loadTraversalThrough');

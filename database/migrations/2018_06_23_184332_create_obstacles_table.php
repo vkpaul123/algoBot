@@ -19,6 +19,9 @@ class CreateObstaclesTable extends Migration
             $table->double('xLocation', 2);   //  row-location of the obstacle
             $table->double('yLocation', 2);   //  column-location of the obstacle
 
+            $table->string('obstacleType');
+            $table->integer('evaporationValue')->default(3);
+            
             $table->integer('robot_id');
 
             $table->timestamps();

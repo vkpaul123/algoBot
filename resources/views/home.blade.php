@@ -7,8 +7,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     All Robots
-
-                    <a href="{{ route('newRobotTraversal') }}" class="btn btn-primary pull-right"><strong><i class="fa fa-user-plus"></i>&nbsp; New Robot Traversal</strong></a>
                 </div>
 
                 <div class="panel-body">
@@ -32,6 +30,7 @@
                                         <th>Path Set</th>
                                         <th>Started</th>
                                         <th>Reached</th>
+                                        <th>Traversal</th>
                                         <th>Online</th>
                                         <th>Options</th>
                                     </tr>
@@ -87,6 +86,15 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if ($robot->allowMove == 0)
+                                                <strong class="text-danger"><i class="fa fa-stop"></i></strong>
+                                            @elseif ($robot->allowMove == 1)
+                                                <strong class="text-success"><i class="fa fa-play"></i></strong>
+                                            @else
+                                                <strong class="text-warning"><i class="fa fa-pause"></i></strong>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if ($robot->isOnline())
                                                 <span class="text-success"><strong><i class="fa fa-user"></i></strong></span>
                                             @else
@@ -95,10 +103,10 @@
                                         </td>
                                         <td>
                                             @if ($robot->started == 0)
-                                                <a href="{{ route('pathInputForm', $robot->id) }}" class="btn btn-info btn-xs"><strong>Set Up Path</strong></a> |
+                                                <a href="{{ route('pathInputForm', $robot->id) }}" class="btn btn-info btn-xs"><strong><i class="fa fa-map-marker"></i> &nbsp; Set Up Path</strong></a> |
                                             @endif
                                             
-                                            <a href="{{ route('viewRobotTraversal', $robot->id) }}" class="btn btn-warning btn-xs"><strong>View Traversal</strong></a>
+                                            <a href="{{ route('viewRobotTraversal', $robot->id) }}" class="btn btn-warning btn-xs"><strong><i class="fa fa-eye"></i> &nbsp; View Traversal</strong></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -113,6 +121,13 @@
                     </center>
                     
                     
+                </div>
+                <div class="panel-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <a href="{{ route('newRobotTraversal') }}" class="btn btn-primary pull-right btn-lg"><strong><i class="fa fa-user-plus"></i>&nbsp; New Robot Traversal</strong></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

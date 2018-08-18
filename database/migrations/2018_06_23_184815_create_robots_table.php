@@ -31,11 +31,14 @@ class CreateRobotsTable extends Migration
             $table->double('currLocY', 2);
             
             $table->integer('orientation');
+            $table->integer('orientationOrigin');
 
             $table->boolean('pathSet')->default(0); //  if the robot has recieved a path or not
 
             $table->boolean('started')->default(0); //  if the robot has started to move to the destination or not
             $table->boolean('reached')->default(0); //  if the robot has successfully reached the destination or not
+
+            $table->integer('allowMove')->default(0);
 
             $table->timestamps();
         });

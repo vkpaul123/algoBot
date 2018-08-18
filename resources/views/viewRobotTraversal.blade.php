@@ -9,10 +9,7 @@
                     <strong>View Robot Traversal</strong>
                     
                     <div class="pull-right">
-                        <strong id="robotOnlineStatus">
-                            {{-- Load Online Status Here --}}
-                        </strong> &nbsp; &nbsp;
-                        <a href="{{ route('home') }}" class="btn btn-info">Back</a>
+                        <a href="{{ route('home') }}" class="btn btn-info btn-xs"><strong><i class="fa fa-angle-left"></i> &nbsp; Back</strong></a>
                     </div>
                 </div>
 
@@ -26,7 +23,7 @@
 
                     @include('layouts.robotGrid')
 
-                    <div class="col-md-3 col-md-offset-1">
+                    <div class="col-md-4">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="panel panel-warning">
@@ -37,15 +34,52 @@
                                     <div class="panel-body">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <a href="" class="btn btn-lg btn-block btn-success"><strong><i class="fa fa-play"></i>&nbsp; Start</strong></a>
+                                                <a href="{{ route('startRobotMovement', $robot->id) }}" class="btn btn-lg btn-block btn-success"><strong><i class="fa fa-play"></i>&nbsp; Start</strong></a>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <a href="" class="btn btn-block btn-warning"><strong><i class="fa fa-pause"></i>&nbsp; Pause</strong></a>
+                                                <a href="{{ route('pauseRobotMovement', $robot->id) }}" class="btn btn-block btn-warning"><strong><i class="fa fa-pause"></i>&nbsp; Pause</strong></a>
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <a href="" class="btn btn-block btn-danger"><strong><i class="fa fa-stop"></i>&nbsp; Abort</strong></a>
+                                                <a href="{{ route('stopRobotMovement', $robot->id) }}" class="btn btn-block btn-danger"><strong><i class="fa fa-stop"></i>&nbsp; Abort</strong></a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <h4><strong>Robot Status</strong></h4>
+                                                <div class="pull-right">
+                                                    <strong id="robotOnlineStatus">
+                                                        {{-- Load Online Status Here --}}
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-xs-8">Path Set</div>
+                                                <div class="col-md-4 col-xs-4" id="robotPathSetStatus">
+                                                    {{-- load Path Set status --}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-xs-8">Started</div>
+                                                <div class="col-md-4 col-xs-4" id="robotStartedStatus">
+                                                    {{-- load Started status --}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-xs-8">Reached</div>
+                                                <div class="col-md-4 col-xs-4" id="robotReachedStatus">
+                                                    {{-- load Reached status --}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-xs-8">Traversal</div>
+                                                <div class="col-md-4 col-xs-4" id="robotTraversalStatus">
+                                                    {{-- load Traversal status --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -187,6 +221,57 @@
 
                 paintRobot(traversalArray[i]);
             }
+
+            var obstacleArray = data['obstacles'];
+
+            for(var i=0; i<obstacleArray.length; i++) {
+                var obstAddrX = obstacleArray[i]['xLocation'], obstAddrY = obstacleArray[i]['yLocation']; 
+                var obstAddrStr;
+                if (obstacleArray[i]['obstacleType'] == 'node') {
+                    obstAddrStr = '#node-' + obstAddrX.toString() + '-' + obstAddrY.toString();
+                } else {
+                    obstAddrStr = '#sub_node-' + (obstAddrX.toString()).replace('.5', '_5') + '-' + (obstAddrY.toString()).replace('.5', '_5');
+                }
+
+                switch (obstacleArray[i]['evaporationValue']) {
+                    case 1:
+                        $(obstAddrStr).css('background-color', 'yellow');
+                        break;
+
+                    case 2:
+                        $(obstAddrStr).css('background-color', 'Chocolate');
+                        break;
+
+                    case 3:
+                        $(obstAddrStr).css('background-color', 'red');
+                        break;
+                }
+            }
+
+            var robotArray = data['robot'];
+
+            if(robotArray['pathSet'] == 0)
+                $('#robotPathSetStatus').html('<strong class="text-danger"><i class="fa fa-times"></i></strong>');
+            else
+                $('#robotPathSetStatus').html('<strong class="text-success"><i class="fa fa-check"></i></strong>');
+
+            if(robotArray['started'] == 0)
+                $('#robotStartedStatus').html('<strong class="text-danger"><i class="fa fa-times"></i></strong>');
+            else
+                $('#robotStartedStatus').html('<strong class="text-success"><i class="fa fa-check"></i></strong>');
+
+            if(robotArray['reached'] == 0)
+                $('#robotReachedStatus').html('<strong class="text-danger"><i class="fa fa-times"></i></strong>');
+            else
+                $('#robotReachedStatus').html('<strong class="text-success"><i class="fa fa-check"></i></strong>');
+
+            if(robotArray['allowMove'] == 0)
+                $('#robotTraversalStatus').html('<strong class="text-danger"><i class="fa fa-stop"></i></strong>');
+            else if(robotArray['allowMove'] == 1)
+                $('#robotTraversalStatus').html('<strong class="text-success"><i class="fa fa-play"></i></strong>');
+            else
+                $('#robotTraversalStatus').html('<strong class="text-warning"><i class="fa fa-pause"></i></strong>');
+
         })
         .fail(function() {
             console.log("error");

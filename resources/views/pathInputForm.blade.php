@@ -10,8 +10,8 @@
 					New Traversal Form
 					
 					<div class="pull-right">
-						<a href="{{ route('home') }}">Back</a> &nbsp; |  &nbsp; 
-						<a href="" class="btn btn-danger"><strong><i class="fa fa-undo"></i></strong></a>
+						<a href="" class="btn btn-danger btn-xs"><strong><i class="fa fa-undo"></i></strong></a> &nbsp; | &nbsp; 
+						<a href="{{ route('home') }}" class="btn btn-info btn-xs"><strong><i class="fa fa-angle-left"></i> &nbsp; Back</a></strong>
 					</div>
 				</div>
 
