@@ -124,23 +124,23 @@
 								<tr>
 									<td></td>
 									<td>
-										<a href="" class="btn btn-primary btn-block" onclick="orientNorth()"><code style="font-size: 2em;">&uarr;</code></a>
+										<a href="" class="btn btn-primary btn-block" onclick="orientNorth()"><code style="font-size: 2em;"><i class="fa fa-arrow-up"></i></code></a>
 									</td>
 									<td></td>
 								</tr>
 								<tr>
 									<td>
-										<a href="" class="btn btn-primary btn-block" onclick="orientWest()"><code style="font-size: 2em;">&larr;</code></a>
+										<a href="" class="btn btn-primary btn-block" onclick="orientWest()"><code style="font-size: 2em;"><i class="fa fa-arrow-left"></i></code></a>
 									</td>
 									<td></td>
 									<td>
-										<a href="" class="btn btn-primary btn-block" onclick="orientEast()"><code style="font-size: 2em;">&rarr;</code></a>
+										<a href="" class="btn btn-primary btn-block" onclick="orientEast()"><code style="font-size: 2em;"><i class="fa fa-arrow-right"></i></code></a>
 									</td>
 								</tr>
 								<tr>
 									<td></td>
 									<td>
-										<a href="" class="btn btn-primary btn-block" onclick="orientSouth()"><code style="font-size: 2em;">&darr;</code></a>
+										<a href="" class="btn btn-primary btn-block" onclick="orientSouth()"><code style="font-size: 2em;"><i class="fa fa-arrow-down"></i></code></a>
 									</td>
 									<td></td>
 								</tr>

@@ -64,7 +64,7 @@ class RobotController extends Controller
     	$robot->currLocX = $request->currLocX;
     	$robot->currLocY = $request->currLocY;
         $robot->orientation = $request->orientation;
-    	$robot->orientation = $request->orientationOrigin;
+    	$robot->orientationOrigin = $request->orientation;
 
     	$robot->save();
 
