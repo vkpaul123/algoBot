@@ -69,17 +69,17 @@
 								<tr>
 									<td></td>
 									<td>
-										<a href="" id="btnMoveRobot" class="btn btn-primary btn-block" onclick="moveRobot(1);"><code style="font-size: 2em;">&uarr;</code></a>
+										<a href="" id="btnMoveRobot" class="btn btn-primary btn-block" onclick="moveRobot(1);"><code style="font-size: 2em;"><i class="fa fa-arrow-up"></i></code></a>
 									</td>
 									<td></td>
 								</tr>
 								<tr>
 									<td>
-										<a href="" id="btnRotateRobot" class="btn btn-primary btn-block" onclick="moveRobot(3);"><code style="font-size: 2em;">&larr;</code></a>
+										<a href="" id="btnRotateRobot" class="btn btn-primary btn-block" onclick="moveRobot(3);"><code style="font-size: 2em;"><i class="fa fa-arrow-left"></i></code></a>
 									</td>
 									<td></td>
 									<td>
-										<a href="" id="btnRotateRobot" class="btn btn-primary btn-block" onclick="moveRobot(2);"><code style="font-size: 2em;">&rarr;</code></a>
+										<a href="" id="btnRotateRobot" class="btn btn-primary btn-block" onclick="moveRobot(2);"><code style="font-size: 2em;"><i class="fa fa-arrow-right"></i></code></a>
 									</td>
 								</tr>
 							</table>

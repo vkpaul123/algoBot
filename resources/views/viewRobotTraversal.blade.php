@@ -82,6 +82,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        {{-- <br>
+                                        <button id="showMdl">modal</button> --}}
+
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +98,31 @@
                         <input type="hidden" id="currLoc" name="currLoc" value="node-{{ $robot->currLocX }}-{{ $robot->currLocY }}">
                         <input type="hidden" id="orientation_robot" name="orientation_robot" value="{{ $robot->orientation }}">
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal3" role="dialog">
+                        <div class="modal-dialog modal-lg">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    {{-- <button type="button" class="close" data-dismiss="modal">×</button> --}}
+                                    <h4 class="modal-title"><h1 class="text-danger"><strong>Obstacle Detected!</strong><br><small>Reroute Robot</small></h1></h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- <p>You cannot click outside of this modal to close it.</p> --}}
+
+                                    {{-- reroute form --}}
+                                    @include('robotRerouteForm')
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -143,43 +172,43 @@
                 if(traversalArray['nodeType'] == 'node') {
                     switch(traversalArray['orientation']) {
                         case 1:
-                            $('#sub_node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] - 0.5).toString()).replace('.5', '_5')).html('');
-                            break;
+                        $('#sub_node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] - 0.5).toString()).replace('.5', '_5')).html('');
+                        break;
 
                         case 2:
-                            $('#sub_node-' + ((traversalArray['currLocX'] - 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
-                            break;
+                        $('#sub_node-' + ((traversalArray['currLocX'] - 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
+                        break;
 
                         case 3:
-                            $('#sub_node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] + 0.5).toString()).replace('.5', '_5')).html('');
-                            break;
+                        $('#sub_node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] + 0.5).toString()).replace('.5', '_5')).html('');
+                        break;
 
                         case 4:
-                            $('#sub_node-' + ((traversalArray['currLocX'] + 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
+                        $('#sub_node-' + ((traversalArray['currLocX'] + 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
                     } 
                 } else if(traversalArray['nodeType'] == 'sub-node') {
                     switch(traversalArray['orientation']) {
                         case 1:
-                            $('#node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] - 0.5).toString()).replace('.5', '_5')).html('');
-                            break;
+                        $('#node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] - 0.5).toString()).replace('.5', '_5')).html('');
+                        break;
 
                         case 2:
-                            $('#node-' + ((traversalArray['currLocX'] - 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
-                            break;
+                        $('#node-' + ((traversalArray['currLocX'] - 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
+                        break;
 
                         case 3:
-                            $('#node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] + 0.5).toString()).replace('.5', '_5')).html('');
-                            break;
+                        $('#node-' + (traversalArray['currLocX']).toString() + '-' + ((traversalArray['currLocY'] + 0.5).toString()).replace('.5', '_5')).html('');
+                        break;
 
                         case 4:
-                            $('#node-' + ((traversalArray['currLocX'] + 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
+                        $('#node-' + ((traversalArray['currLocX'] + 0.5).toString()).replace('.5', '_5') + '-' + (traversalArray['currLocY']).toString()).html('');
                     }
                 }
             }
         }
         
         if(currLoc == destin) {
-        console.log('hi');
+            console.log('hi');
             $('#gridPanel').removeClass('panel-info').addClass('panel-primary');
             $('#reachedResult').html('<strong>&nbsp; <i>Reached Destination!</i></strong>');
             $('#' + destin).css('background-color', 'aqua');
@@ -187,7 +216,7 @@
     }
 
     function updateAjaxRobotTraversal() {
-
+        var modalShownFlag = false;
         $.ajax({
             url: '{{ route('loadTraversalThrough', $robot->id) }}',
             type: 'GET',
@@ -224,27 +253,42 @@
 
             var obstacleArray = data['obstacles'];
 
+            
+
             for(var i=0; i<obstacleArray.length; i++) {
                 var obstAddrX = obstacleArray[i]['xLocation'], obstAddrY = obstacleArray[i]['yLocation']; 
                 var obstAddrStr;
                 if (obstacleArray[i]['obstacleType'] == 'node') {
                     obstAddrStr = '#node-' + obstAddrX.toString() + '-' + obstAddrY.toString();
+                    obstAddrStrR = '#Reroute_node-' + obstAddrX.toString() + '-' + obstAddrY.toString();
                 } else {
                     obstAddrStr = '#sub_node-' + (obstAddrX.toString()).replace('.5', '_5') + '-' + (obstAddrY.toString()).replace('.5', '_5');
+                    obstAddrStrR = '#Reroute_sub_node-' + (obstAddrX.toString()).replace('.5', '_5') + '-' + (obstAddrY.toString()).replace('.5', '_5');
                 }
 
                 switch (obstacleArray[i]['evaporationValue']) {
                     case 1:
-                        $(obstAddrStr).css('background-color', 'yellow');
-                        break;
+                    $(obstAddrStr).css('background-color', 'yellow');
+                    $(obstAddrStrR).css('background-color', 'yellow');
+                    break;
 
                     case 2:
-                        $(obstAddrStr).css('background-color', 'Chocolate');
-                        break;
+                    $(obstAddrStr).css('background-color', 'Chocolate');
+                    $(obstAddrStrR).css('background-color', 'Chocolate');
+                    break;
 
                     case 3:
-                        $(obstAddrStr).css('background-color', 'red');
-                        break;
+                    $(obstAddrStr).css('background-color', 'red');
+                    $(obstAddrStrR).css('background-color', 'red');
+                    if(!modalShownFlag) {
+                        $('#newObstacleX').val(obstAddrX);
+                        $('#newObstacleY').val(obstAddrY);
+                        $('#myModal3').modal({backdrop: "static"});
+                        $("#myModal3").on('shown.bs.modal', function () {
+                            modalShownFlag = true;
+                        });
+                    }
+                    break;
                 }
             }
 
@@ -282,6 +326,10 @@
 
         setTimeout(updateAjaxRobotTraversal, 1000);
     }
+
+    $('#showMdl').click(function(event) {
+        $('#myModal3').modal({backdrop: "static"});
+    });
     
 </script>
 

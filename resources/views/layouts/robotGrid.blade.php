@@ -324,14 +324,14 @@
                             <h4><strong>Obstacle</strong></h4>
                         </div>
                         <div class="row">
-                            <span style="color: red;"><i class="fa fa-stop"></i></span> &nbsp; High Evaporation
+                            <span style="color: red;"><i class="fa fa-stop"></i></span> &nbsp; New Obstacle
                         </div>
                         <div class="row">
-                            <span style="color: chocolate;"><i class="fa fa-stop"></i></span> &nbsp; Medium Evaporation
+                            <span style="color: chocolate;"><i class="fa fa-stop"></i></span> &nbsp; Old Obstacle
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <span style="color: yellow;"><i class="fa fa-stop"></i></span> &nbsp; Low Evaporation
-                        </div>
+                        </div> --}}
                     </div>
                 </div>    
             </div>

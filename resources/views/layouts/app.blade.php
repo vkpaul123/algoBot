@@ -68,5 +68,8 @@
 
     @section('pageScripts')
         @show
+
+    @section('pageScripts2')
+        @show
 </body>
 </html>

@@ -135,4 +135,11 @@ class RobotController extends Controller
 
         return $robot->allowMove;
     }
+
+    public function initRobotData($robot_id)
+    {
+        $robot = Robot::find($robot_id);
+
+        return $robot->currLocX.','.$robot->currLocY.'-'.($robot->orientation-1);
+    }
 }

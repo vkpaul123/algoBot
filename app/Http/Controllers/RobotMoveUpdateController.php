@@ -26,13 +26,11 @@ class RobotMoveUpdateController extends Controller
             $robot->currLocX = $currLocX;
             $robot->currLocY = $currLocY;
             $robot->orientation = $orientation;
-            if($robot->destinationX==$currLocX && $robot->$currLocY==$currLocY)
+            if($robot->destinationX==$currLocX && $robot->destinationY==$currLocY)
                 $robot->reached = 1;    
 
             if($currLocX!=$robot->destinationX || $currLocY!=$robot->destinationY) {
                 $robot->started = 1;
-            } else {
-                $robot->reached = 1;
             }
 
             $robot->save();
@@ -50,6 +48,10 @@ class RobotMoveUpdateController extends Controller
         $obstacle->obstacleType = $obstacleType;
         $obstacle->robot_id = $robot_id;
         $obstacle->save();
+
+        $robot = Robot::find($robot_id);
+        $robot->allowMove = 2;
+        $robot->save();
 
         return 'OK';
     }

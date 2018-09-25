@@ -20,6 +20,9 @@ Route::get('/robot', 'RobotController@showNewRobotTraversalForm')->name('newRobo
 Route::post('/robot', 'RobotController@saveNewRobotTraversalForm')->name('saveNewRobotTraversal');
 Route::get('/robot/{id}/viewRobotTraversal', 'RobotController@viewRobotTraversal')->name('viewRobotTraversal');
 
+//	test Connection
+Route::get('/testConnection', 'PathController@testConnection');
+
 //	robot movements
 Route::get('/robot/setAllowMovement/{id}/start', 'RobotController@startRobotMovement')->name('startRobotMovement');
 Route::get('/robot/setAllowMovement/{id}/pause', 'RobotController@pauseRobotMovement')->name('pauseRobotMovement');
@@ -37,7 +40,10 @@ Route::get('/ajax/traversal/loader/{id}', 'RobotController@refreshRobotTraversal
 //	path routes
 Route::get('/pathInputForm/{robot_id}', 'PathController@showPathInputForm')->name('pathInputForm');
 Route::post('/pathInputForm', 'PathController@storePath')->name('pathInputForm-store');
+Route::post('/pathInputForm', 'PathController@storePathReroute')->name('pathInputForm-reroute');
 Route::get('/getPath/{robot_id}/get', 'PathController@getPath');
+Route::get('/getLatestPath/{robot_id}/get', 'PathController@getLatestPath');
+Route::get('/initRobotData/{robot_id}/get', 'RobotController@initRobotData');
 
 Auth::routes();
 
